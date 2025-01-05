@@ -1,9 +1,13 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error as mse
+from sklearn.neighbors import KNeighborsRegressor as KNN_Reg
+import matplotlib.pyplot as plt
 
 # Load data
-@st.cache
+@st.cache_data  # Disarankan menggunakan cache_data untuk penyimpanan data
 def load_data():
     data_location = './mmm.csv'  # Pastikan path ini benar
     data = pd.read_csv(data_location)
