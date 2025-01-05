@@ -88,7 +88,7 @@ elif selection == "Prediction":
     # Input features
     tahun = st.number_input("Year of Manufacture", 2000, 2025, 2012)
     jarak_tempuh = st.number_input("Distance Travelled (in km)", 0, 500000, 12000)
-    pajak = st.number_input("Tax (in GBP)", 0, 50000, 11300000)
+    pajak = st.number_input("Tax (in GBP)", 0, 50000, 1000)  # Ubah default menjadi nilai dalam rentang maksimum
     mpg = st.number_input("Miles Per Gallon (mpg)", 0.0, 100.0, 33.0)
     ukuran_mesin = st.number_input("Engine Size (in liters)", 0.0, 10.0, 2.3)
 
@@ -101,4 +101,5 @@ elif selection == "Prediction":
 
     prediction = new_model.predict(row_input)
     st.write(f"### Predicted Price: £{prediction[0]:.2f}")
+
     st.write(f"### Predicted Price in IDR (in million): Rp {prediction[0] * 19110 * 1e-6:.2f} Juta")
