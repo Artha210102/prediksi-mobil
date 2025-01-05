@@ -95,11 +95,12 @@ elif selection == "Prediction":
     row_input = np.array([[tahun, jarak_tempuh, pajak, mpg, ukuran_mesin]])
 
     # Model prediction
-    neighbors = st.slider("Select number of neighbors for KNN (for prediction)", 1, 50, 28)
-    new_model = KNN_Reg(n_neighbors=neighbors)
-    new_model.fit(train_x, train_y)
+neighbors = st.slider("Select number of neighbors for KNN (for prediction)", 1, 50, 28)
+new_model = KNeighborsRegressor(n_neighbors=neighbors)
+new_model.fit(train_x, train_y)
 
-    prediction = new_model.predict(row_input)
-    st.write(f"### Predicted Price: £{prediction[0]:.2f}")
+prediction = new_model.predict(row_input)
+st.write(f"### Predicted Price: £{prediction[0]:.2f}")
 
-    st.write(f"### Predicted Price in IDR (in million): Rp {prediction[0] * 19110 * 1e-6:.2f} Juta")
+st.write(f"### Predicted Price in IDR (in million): Rp {prediction[0] * 19110 * 1e-6:.2f} Juta")
+
