@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import train_test_split
+import KNeighborsRegressor as KNN_Reg
+import mean_squared_error as mse
 
 # Load data
 @st.cache
