@@ -1,8 +1,6 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import train_test_split as tst
-import mean_squared_error as mse
 
 # Load data
 @st.cache_data  # Disarankan menggunakan cache_data untuk penyimpanan data
