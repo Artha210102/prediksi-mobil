@@ -5,7 +5,7 @@ import numpy as np
 # Load data
 @st.cache
 def load_data():
-    data_location = '/content/mmm.csv'
+    data_location = './mmm.csv'  # Pastikan path ini benar
     data = pd.read_csv(data_location)
     return data
 
