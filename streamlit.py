@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import KNeighborsRegressor as Knn
 import train_test_split as tst
 import mean_squared_error as mse
 
