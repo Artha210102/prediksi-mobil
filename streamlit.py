@@ -2,6 +2,11 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
+# 1. ADDED MISSING IMPORTS
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.metrics import mean_squared_error as mse
+
 # Load data
 @st.cache_data  # Disarankan menggunakan cache_data untuk penyimpanan data
 def load_data():
@@ -10,6 +15,14 @@ def load_data():
     return data
 
 row_data = load_data()
+
+# 2. MOVED DATA PREPARATION TO GLOBAL SCOPE
+# This ensures train_x and train_y are available on all pages
+data = row_data.dropna(axis=0)
+features = ['tahun', 'jarak_tempuh', 'pajak', 'mpg', 'ukuran_mesin']
+x = data[features]
+y = data['harga']
+train_x, test_x, train_y, test_y = train_test_split(x, y, random_state=40)
 
 # Sidebar navigation
 st.sidebar.title("Navigation")
@@ -37,12 +50,7 @@ elif selection == "Data Overview":
 # Model Training Page
 elif selection == "Model Training":
     st.title("Model Training")
-    data = row_data.dropna(axis=0)
-    features = ['tahun', 'jarak_tempuh', 'pajak', 'mpg', 'ukuran_mesin']
-    x = data[features]
-    y = data['harga']
-    train_x, test_x, train_y, test_y = train_test_split(x, y, random_state=40)
-
+    
     neighbors = st.slider("Select number of neighbors for KNN", 1, 50, 40)
     model = KNeighborsRegressor(n_neighbors=neighbors)
     model.fit(train_x, train_y)
@@ -67,12 +75,11 @@ elif selection == "Prediction":
 
     row_input = np.array([[tahun, jarak_tempuh, pajak, mpg, ukuran_mesin]])
 
-   # Model prediction
+    # Model prediction
     neighbors = st.slider("Select number of neighbors for KNN (for prediction)", 1, 50, 28)
     new_model = KNeighborsRegressor(n_neighbors=neighbors)
-    new_model.fit(train_x, train_y)
+    new_model.fit(train_x, train_y) # This now works because train_x and train_y are global
 
     prediction = new_model.predict(row_input)
     st.write(f"### Predicted Price: £{prediction[0]:.2f}")
     st.write(f"### Predicted Price in IDR (in million): Rp {prediction[0] * 19110 * 1e-6:.2f} Juta")
-
